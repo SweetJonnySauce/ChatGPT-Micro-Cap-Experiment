@@ -197,7 +197,7 @@ def log_manual_buy(
     if check == "1":
         raise SystemError("Please remove this function call.")
 
-    data = yf.download(ticker, period="1d")
+    data = yf.download(ticker, period="1d", auto_adjust=False)
     data = cast(pd.DataFrame, data)
     if data.empty:
         raise SystemError(f"error, could not find ticker {ticker}")
@@ -317,7 +317,7 @@ def daily_results(chatgpt_portfolio: pd.DataFrame, cash: float) -> None:
     for stock in portfolio_dict + [{"ticker": "^RUT"}] + [{"ticker": "IWO"}] + [{"ticker": "XBI"}]:
         ticker = stock["ticker"]
         try:
-            data = yf.download(ticker, period="2d", progress=False)
+            data = yf.download(ticker, period="2d", progress=False, auto_adjust=False)
             data = cast(pd.DataFrame, data)
             if data.empty or len(data) < 2:
                 print(f"Data for {ticker} was empty or incomplete.")
@@ -368,7 +368,7 @@ def daily_results(chatgpt_portfolio: pd.DataFrame, cash: float) -> None:
     print(f"Total Sortino Ratio over {n_days} days: {sortino_total:.4f}")
     print(f"Latest ChatGPT Equity: ${final_equity:.2f}")
     # Get S&P 500 data
-    spx = yf.download("^SPX", start="2025-06-27", end=final_date + pd.Timedelta(days=1), progress=False)
+    spx = yf.download("^SPX", start="2025-06-27", end=final_date + pd.Timedelta(days=1), progress=False, auto_adjust=False)
     spx = cast(pd.DataFrame, spx)
     spx = spx.reset_index()
 
@@ -404,9 +404,12 @@ def main(chatgpt_portfolio, cash) -> None:
 if __name__ == "__main__":
     cash = 100 # insert real cash
     chatgpt_portfolio = [
-        {"ticker": "ABEO", "shares": 6, "stop_loss": 4.9, "buy_price": 5.77, "cost_basis": 34.62},
-        {"ticker": "IINN", "shares": 14, "stop_loss": 1.1, "buy_price": 1.5, "cost_basis": 21.0},
-        {"ticker": "ACTU", "shares": 6, "stop_loss": 4.89, "buy_price": 5.75, "cost_basis": 34.5},
+        {"ticker": "QSI", "shares": 9, "stop_loss": 0.90, "buy_price": 1.48, "cost_basis": 13.32},
+        {"ticker": "FDMT", "shares": 3, "stop_loss": 5.00, "buy_price": 6.39, "cost_basis": 19.17},
+        {"ticker": "ALT", "shares": 3, "stop_loss": 2.50, "buy_price": 3.68, "cost_basis": 11.04},
+        {"ticker": "GLUE", "shares": 3, "stop_loss": 3.50, "buy_price": 4.79, "cost_basis": 14.37},
+        {"ticker": "TXMD", "shares": 6, "stop_loss": 0.80, "buy_price": 1.11, "cost_basis": 6.66},
     ]
+
     main(chatgpt_portfolio, cash)
 

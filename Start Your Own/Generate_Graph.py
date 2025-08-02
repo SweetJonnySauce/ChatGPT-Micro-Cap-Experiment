@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import yfinance as yf
 
-DATA_DIR = "Scripts and CSV Files"
+DATA_DIR = "."
 PORTFOLIO_CSV = f"{DATA_DIR}/chatgpt_portfolio_update.csv"
 
 
@@ -19,7 +19,7 @@ def load_portfolio_totals() -> pd.DataFrame:
     chatgpt_totals = chatgpt_df[chatgpt_df["Ticker"] == "TOTAL"].copy()
     chatgpt_totals["Date"] = pd.to_datetime(chatgpt_totals["Date"])
 
-    baseline_date = pd.Timestamp("2025-06-27")
+    baseline_date = pd.Timestamp("2025-08-02")
     baseline_equity = 100
     baseline_row = pd.DataFrame({"Date": [baseline_date], "Total Equity": [baseline_equity]})
     return pd.concat([baseline_row, chatgpt_totals], ignore_index=True).sort_values("Date")
@@ -27,7 +27,7 @@ def load_portfolio_totals() -> pd.DataFrame:
 
 def download_sp500(start_date: pd.Timestamp, end_date: pd.Timestamp) -> pd.DataFrame:
     """Download S&P 500 prices and normalise to a $100 baseline."""
-    sp500 = yf.download("^SPX", start=start_date, end=end_date + pd.Timedelta(days=1), progress=False)
+    sp500 = yf.download("^SPX", start=start_date, end=end_date + pd.Timedelta(days=1), progress=False, auto_adjust=False)
     sp500 = sp500.reset_index()
     if isinstance(sp500.columns, pd.MultiIndex):
         sp500.columns = sp500.columns.get_level_values(0)
@@ -41,7 +41,7 @@ def main() -> None:
     """Generate and display the comparison graph."""
     chatgpt_totals = load_portfolio_totals()
 
-    start_date = pd.Timestamp("2025-06-27")
+    start_date = pd.Timestamp("2025-08-02")
     end_date = chatgpt_totals["Date"].max()
     sp500 = download_sp500(start_date, end_date)
 
