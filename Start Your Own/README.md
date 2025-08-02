@@ -4,7 +4,7 @@ This folder lets you run the trading experiment on your own computer. It contain
 
 Run the commands below from the repository root. The scripts automatically
 save their CSV data inside this folder.
-
+ 
 ## Trading_Script.py
 
 This script updates your portfolio and logs trades.
