@@ -20,5 +20,5 @@ if __name__ == "__main__":
     ]
 
     data_dir = Path(__file__).resolve().parent
-    main(chatgpt_portfolio, cash, data_dir)
+    main("Start Your Own/chatgpt_portfolio_update.csv", Path("Start Your Own"))
 
