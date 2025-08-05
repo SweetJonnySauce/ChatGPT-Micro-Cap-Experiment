@@ -349,7 +349,7 @@ If this is a mistake, enter 1. """
         return cash, chatgpt_portfolio
     day_high = float(data["High"].iloc[-1])
     day_low = float(data["Low"].iloc[-1])
-    if not (day_low <= sell_price <= day_high):
+    if not (round(day_low, 2) <= sell_price <= day_high):
         print(
             f"Manual sell for {ticker} at {sell_price} failed: price outside today's range {round(day_low, 2)}-{round(day_high, 2)}."
         )
