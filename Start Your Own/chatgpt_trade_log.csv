@@ -1,3 +1,5 @@
 Date,Ticker,Shares Bought,Buy Price,Cost Basis,PnL,Reason,Shares Sold,Sell Price
 2025-08-04,TXMD,,,6.66,-0.0599999999999996,MANUAL SELL - ,6.0,1.1
 2025-08-04,GLUE,3.0,4.88,14.64,0.0,MANUAL BUY - New position,,
+2025-08-05,ALT,,,11.04,-0.0900000000000016,MANUAL SELL - ,3.0,3.65
+2025-08-05,GLUE,4.0,4.83,19.32,0.0,MANUAL BUY - New position,,
